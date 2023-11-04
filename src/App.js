@@ -17,11 +17,11 @@ function App() {
     <div className="App max-vw-100">
       <BrowserRouter>
         <ClockNav />
-        <div className='row justify-content-center'>
-          <div className='col-8'>
+        <div className='row '>
+          <div className='col-md-5 col-sm-5 col-lg-8 col-12 align-self-center'>
           <FoodCard onAddToBill={handleAddToBill} restaurants={restaurants} setRestaurants={setRestaurants} />
           </div>
-          <div className='col-2'>
+          <div className='col-auto col-lg-2'>
             <Bill selectedItems={selectedItems} />
           </div>
         </div>

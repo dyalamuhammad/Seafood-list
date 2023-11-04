@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { ArrowRight, ListUl, PersonCircle } from 'react-bootstrap-icons';
+import { ListUl, PersonCircle } from 'react-bootstrap-icons';
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
@@ -7,9 +7,12 @@ import ListGroup from "react-bootstrap/ListGroup";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { getValue } from "@testing-library/user-event/dist/utils";
 
 
 const Bill = ({selectedItems }) => {
+  const [billItems, setBillItems] = useState(selectedItems);
+
   const total = selectedItems.reduce((acc, item) => acc + item.price, 0);
   const [change, setChange] = useState(0);
   const handlePrint = () => {
@@ -35,8 +38,21 @@ const Bill = ({selectedItems }) => {
       window.alert("Please enter a valid number for customer payment.");
     }
   };
+  const formatPrice = (price) => {
+    return price.toLocaleString("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    });
+  };
+  let eventKey = getValue.Dropdown
+  if (eventKey==1) {
+    eventKey='asdine In'
+  } else {
+    eventKey = 'Take Away'
+  }
   return (
-    <Card style={{ width: "25em", height: "25em"}} className="mt-5 sticky-top">
+    <Card style={{ width: "25em", height: "auto" }} className="mt-5 sticky-top">
       <Card.Body>
         <div className="row">
 
@@ -48,7 +64,7 @@ const Bill = ({selectedItems }) => {
 
         <DropdownButton
           as={ButtonGroup}
-          title="Dine In"
+          title={eventKey}
           id="bg-nested-dropdown"
           size="xl"
         >
@@ -65,14 +81,15 @@ const Bill = ({selectedItems }) => {
         </div>
         {selectedItems.map((item, index) => (
         <div className="row justify-content-between" key={index}>
-          <p className="col-1">{item.name}</p>
-          <p className="col-2">Rp.{item.price}</p>
+          <p className="col-6 text-start">{item.name}</p>
+          <p className="col-2">{selectedItems.filter(i => i.name === item.name).length}x</p>
+          <p className="col-3 text-end">{formatPrice(item.price)}</p>
         </div>
         ))}
       
         <div className="row justify-content-between">
-          <p className="col-2">Total</p>
-          <p className="col-2">Rp.{total}</p>
+          <p className="col-2 text-start">Total</p>
+          <p className="col-4 text-end">{formatPrice(total)}</p>
         </div>
       </Card.Body>
       <Card.Body>

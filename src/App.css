@@ -45,7 +45,7 @@
   text-align: center; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  /* justify-content: left; */
   gap: 20px;
 }
 

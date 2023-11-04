@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { CardBody } from "react-bootstrap";
 
-const FoodCard = ({ restaurants, setRestaurants }) => {
+const FoodCard = ({ restaurants, setRestaurants, onAddToBill }) => {
   const [loading, setLoading] = useState(true);
 
 
@@ -33,7 +33,7 @@ const FoodCard = ({ restaurants, setRestaurants }) => {
 
   
   return (
-    <div className="restaurant-container my-5">
+    <div className="restaurant-container my-5 sm:justify-content-center">
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -41,7 +41,7 @@ const FoodCard = ({ restaurants, setRestaurants }) => {
           <Card
             style={{ width: "200px", height: "240px" }}
             key={index}
-            // onClick={() => onAddToBill(restaurant)}
+            onClick={() => onAddToBill(restaurant)}
           >
             <Card.Img
               variant="top"
